@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A BEAUTIFUL 20th BIRTHDAY 💖</title>
+<style>
+/* ===== BASE ===== */
+body, html {
+  margin:0; padding:0;
+  width:100%; height:100%;
+  overflow:hidden;
+  font-family:'Segoe UI',sans-serif;
+  background:#6c6ff1;
+}
+
+/* ===== CINEMATIC INTRO ===== */
+#intro-screen{
+  position:fixed; inset:0;
+  background:rgb(19, 204, 241);
+  display:flex; justify-content:center; align-items:center;
+  z-index:9999;
+  animation:fadeOutIntro 3s forwards;
+  animation-delay:3s;
+}
+.cinema-title{
+  font-size:6vmin; color:white; letter-spacing:3px;
+  animation:cinemaZoom 3s ease;
+}
+/* ===== Sparkle Animation for Intro ===== */
+/* ===== Sparkle + Pop Animation ===== */
+.sparkle-pop {
+  font-size:6vmin;
+  color:white;
+  letter-spacing:3px;
+  display:inline-block;
+  opacity:0;
+  transform: scale(0.7);
+  animation: popIn 1s ease forwards, sparkle 2s infinite alternate;
+  transform-origin: center;
+}
+
+/* Pop / bounce entrance */
+@keyframes popIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* Glow / sparkle effect */
+@keyframes sparkle {
+  0% { text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4; }
+  25% { text-shadow: 0 0 10px #fff, 0 0 20px #ffb6c1; }
+  50% { text-shadow: 0 0 15px #fff, 0 0 25px #ff69b4; }
+  75% { text-shadow: 0 0 10px #fff, 0 0 20px #ffb6c1; }
+  100% { text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4; }
+}
+
+
+@keyframes sparkle {
+  0% { text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4; }
+  25% { text-shadow: 0 0 10px #fff, 0 0 20px #ffb6c1; }
+  50% { text-shadow: 0 0 15px #fff, 0 0 25px #ff69b4; }
+  75% { text-shadow: 0 0 10px #fff, 0 0 20px #ffb6c1; }
+  100% { text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4; }
+}
+
+/* ===== Pop + Zoom Animation for Intro ===== */
+.pop-zoom {
+  animation: sparkle 2s infinite alternate, popZoom 0.8s ease forwards;
+  transform-origin: center;
+}
+
+@keyframes popZoom {
+  0% { transform: scale(0.7); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+@keyframes cinemaZoom{ from{opacity:0; transform:scale(0.7);} to{opacity:1; transform:scale(1);} }
+@keyframes fadeOutIntro{ to{opacity:0; visibility:hidden;} }
+
+/* ===== PAGE BASE ===== */
+.page {
+  position:fixed; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  padding:5vw;
+  opacity:0;
+  transform:translateX(50px) scale(0.98);
+  filter:blur(10px);
+  transition:all 1s cubic-bezier(0.22,1,0.36,1);
+  pointer-events:none;
+}
+.page.show {
+  opacity:1;
+  transform:translateX(0) scale(1);
+  filter:blur(0);
+  pointer-events:auto;
+}
+h1,p { 
+  opacity:0; 
+  transform:translateY(30px); 
+  text-align:center; 
+  font-weight:bold;
+  background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation:rainbow 6s linear infinite;
+}
+@keyframes rainbow{ 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+.page.show h1, .page.show p { opacity:1; transform:translateY(0); transition-delay:0.3s; }
+
+.image-container{ opacity:0; transform:translateY(30px); transition:all 1s ease; }
+.page.show .image-container{ opacity:1; transform:translateY(0); transition-delay:1s; }
+.image-container img{ width:90%; max-width:300px; border-radius:20px; transition: transform 2s ease; }
+
+/* ===== PARTICLES ===== */
+.emoji{ position:fixed; pointer-events:none; animation:float 6s linear forwards, fadeOut 6s forwards; }
+@keyframes float{ 0%{transform:translateY(100vh);} 100%{transform:translateY(-10vh);} }
+@keyframes fadeOut{ from{opacity:1;} to{opacity:0;} }
+
+/* ===== NAV BUTTONS ===== */
+.nav-buttons{ position:fixed; bottom:4vw; width:100%; display:flex; justify-content:center; gap:4vw; z-index:1000; }
+button{ padding:2vw 5vw; font-size:4vmin; border:none; border-radius:20px; background:#ff69b4; color:white; cursor:pointer; }
+.music-btn{ position:fixed; top:4vw; right:4vw; z-index:1000; }
+
+/* ===== SLIDE OPTIONS BUTTONS (Slides 2–6) ===== */
+.options{
+  margin-top:3vw;
+  display:flex;
+  gap:3vw;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.options button{
+  padding:2vw 5vw;
+  font-size:4vmin;
+  border:none;
+  border-radius:15px;
+  background:#ff69b4;
+  color:white;
+  cursor:pointer;
+  transition:all 0.3s;
+}
+.options button:hover{
+  transform:scale(1.1);
+  background:#ff85c1;
+}
+
+/* Finale glow */
+.finale{ font-size:9vmin; animation:glowPulse 2s infinite alternate; }
+@keyframes glowPulse{ from{text-shadow:0 0 10px #fff;} to{text-shadow:0 0 40px #ff69b4;} }
+
+/* ===== MOBILE RESPONSIVENESS ===== */
+@media screen and (max-width:768px){
+  .page h1 { 
+    font-size:9vw; 
+    line-height:1.2; 
+  }
+  .page p { 
+    font-size:6.5vw; 
+    line-height:1.5; 
+  }
+  button { 
+    font-size:4vw; 
+    padding:3vw 5vw; 
+  }
+  .image-container img { 
+    max-width:80%; 
+    border-radius:15px; 
+  }
+  .finale { 
+    font-size:12vw; 
+  }
+}
+
+/* For smaller phones */
+@media screen and (max-width:480px){
+  .page h1 { 
+    font-size:11vw; 
+    line-height:1.2; 
+  }
+  .page p { 
+    font-size:8vw; 
+    line-height:1.5; 
+  }
+  button { 
+    font-size:5vw; 
+    padding:3vw 4vw; 
+  }
+  .image-container img { 
+    max-width:90%; 
+  }
+  .finale { 
+    font-size:15vw; 
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- CINEMA INTRO -->
+<div id="intro-screen">
+  <h1 class="cinema-title">Surprise! 💖 A Day with Pure Happiness 💖</h1>
+</div>
+
+<!-- MUSIC BUTTON -->
+<button class="music-btn" onclick="toggleMusic()">🎶 Play Music</button>
+<audio id="bg-music" loop>
+  <source src="music/tujhmeinrab-violin.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ================== 26 SLIDES ================== -->
+<!-- Slide 1 -->
+<section class="page" style="background:linear-gradient(to bottom,#FFD700,#FFEA70)">
+  <h1>HAPPIEST BIRTHDAY SWAPNALI!!!!! 🎉💖</h1>
+</section>
+
+<!-- Slide 2 -->
+<section class="page" style="background:linear-gradient(to bottom,#FFD700,#FFEA70)">
+  <h1>HOW'S YOUR BIRTHDAY MOOD? 🥳🎂</h1>
+  <div class="options">
+    <button onclick="selectOption()">EXCITED 😆💖</button>
+    <button onclick="selectOption()">JOYFUL 😍🌸</button>
+  </div>
+</section>
+
+<!-- Slide 3 -->
+<section class="page" style="background:linear-gradient(to bottom,#FFD700,#FFEA70)">
+  <h1>HOW WAS YOUR DAY? ☀️🌈</h1>
+  <div class="options">
+    <button onclick="selectOption()">AMAZING 😎✨</button>
+    <button onclick="selectOption()">FUN 😂🎉</button>
+  </div>
+</section>
+
+<!-- Slide 4 -->
+<section class="page" style="background:linear-gradient(to bottom,#FFD700,#FFEA70)">
+  <h1>ARE YOU ENJOYING YOUR CELEBRATIONS? 🎊💞</h1>
+  <div class="options">
+    <button onclick="selectOption()">LOVED IT 😊💖</button>
+    <button onclick="selectOption()">SUPER HAPPY 😍🎉</button>
+  </div>
+</section>
+
+<!-- Slide 5 -->
+<section class="page" style="background:linear-gradient(to bottom,#FFD700,#FFEA70)">
+  <h1>LOVED YOUR BIRTHDAY COMPLIMENTS? 💖🌸</h1>
+  <div class="options">
+    <button onclick="selectOption()">ABSOLUTELY 😎✨</button>
+    <button onclick="selectOption()">SMILING ALL DAY 💖🎀</button>
+  </div>
+</section>
+
+<!-- Slide 6 -->
+<section class="page" style="background:linear-gradient(to bottom,#FFD700,#FFEA70)">
+  <h1>SO ARE YOU EXCITED FOR YOUR GIFT? 🎁💖</h1>
+  <div class="options">
+    <button onclick="selectOption()">EXCITED 😆✨</button>
+    <button onclick="selectOption()">VERY EXCITED 🥳💞</button>
+  </div>
+</section>
+
+
+<section class="page" style="background:linear-gradient(to bottom,#a0c4ff,#6a9cff)">
+  <h1>Page 1 — HAPPIEST BIRTHDAY SWAPNALI!!!!! 💖</h1>
+  <p>Since 2006, the world learned to smile. 💖</p>
+  <div class="image-container"><img src="images/photo1.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#a0c4ff,#6a9cff)">
+  <h1>Page 2 — The Day the World Got Brighter ✨</h1>
+  <p>Even before you knew it, your presence was already making life more beautiful. ✨</p>
+  <div class="image-container"><img src="images/photo2.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#a0c4ff,#6a9cff)">
+  <h1>Page 3 — Her First Home 👨‍👩‍👧‍👦</h1>
+  <p>Before the world knew you, your family did. 💞</p>
+  <div class="image-container"><img src="images/photo3.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#a0c4ff,#6a9cff)">
+  <h1>Page 4 — Best Friends 👯‍♀️</h1>
+  <p>Some people find best friends later. You were born with yours. 💞</p>
+  <div class="image-container"><img src="images/photo4.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#a0c4ff,#6a9cff)">
+  <h1>Page 5 — Why You're Awesome 💌</h1>
+  <p>Your kindness and warmth make everyone around you feel truly safe and loved. 💖</p>
+  <div class="image-container"><img src="images/photo5.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#a0c4ff,#6a9cff)">
+  <h1>Page 6 — Chill Vibes 🌸</h1>
+  <p>Your calm and soothing presence makes even ordinary days feel special. 🌸</p>
+  <div class="image-container"><img src="images/photo6.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#a0c4ff,#6a9cff)">
+  <h1>Page 7 — Your Spark 😂</h1>
+   <p>Just being yourself lights up every room and makes life brighter. 😂</p>
+  <div class="image-container"><img src="images/photo7.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#a0c4ff,#6a9cff)">
+  <h1>Page 8 — Quirky Wonder 🌟</h1>
+  <p>You sprinkle magic into even the most ordinary moments. ✨</p>
+  <div class="image-container"><img src="images/photo8.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#a0c4ff,#6a9cff)">
+  <h1>Page 9 — Little You 🕰</h1>
+  <p>That little girl in this picture had no idea how amazing she would become. ✨</p>
+  <div class="image-container"><img src="images/Photo9.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#a0c4ff,#6a9cff)">
+  <h1>Page 10 — Your Light Shines 🌙</h1>
+  <p>Your quiet brilliance touches hearts in ways words cannot capture. 🌟</p>
+  <div class="image-container"><img src="images/Photo10.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#fff0f5,#ff69b4)">
+  <h1>Page 11 — Pure Sunshine 💞</h1>
+  <p>You shine in the quietest, sweetest way.. 💞</p>
+  <div class="image-container"><img src="images/photo11.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#fff0f5,#ff69b4)">
+  <h1>Page 12 — Our Story 🌷</h1>
+  <p>We met and clicked instantly. 💖</p>
+  <div class="image-container"><img src="images/photo12.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#fff0f5,#ff69b4)">
+  <h1>Page 13 — Moment to Remember 📸</h1>
+  <p>Some moments seem ordinary until we look back and realize how special they were. 📸</p>
+  <div class="image-container"><img src="images/photo13.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#fff0f5,#ff69b4)">
+  <h1>Page 14 — Laughter & Joy 😂</h1>
+  <p>Smiles at the past, joy in the present. 😂</p>
+  <div class="image-container"><img src="images/photo14.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#fff0f5,#ff69b4)">
+  <h1>Page 15 — 20 Things I Love About You ✨</h1>
+  <p>
+    1. Your laugh<br>2. Your kindness<br>3. Your honesty<br>4. Your heart<br>5. Your warmth<br>
+    6. Your courage<br>7. Your patience<br>8. Your creativity<br>9. Your loyalty<br>10. Your empathy<br>
+    11. Your strength<br>12. Your smile<br>13. Your humour<br>14. Your jokes<br>15. Your voice<br>
+    16. The way you make me feel seen<br>17. Your presence<br>18. Your love for life<br>19. Your soul<br>
+    20. Being able to call you my best friend
+  </p>
+  <div class="image-container"><img src="images/photo15.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#fff0f5,#ffb6c1)">
+  <h1>Page 16 — The Little Things 🌸</h1>
+  <p>The little things you do — a smile, a kind word, a thoughtful gesture — that make the world better. 💖✨</p>
+  <div class="image-container"><img src="images/photo16.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#fff0f5,#ff69b4)">
+  <h1>Page 17 — A Letter To You 💌</h1>
+  <p>Your story continues with laughter, love, and unforgettable memories. 💖</p>
+  <div class="image-container"><img src="images/photo17.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#fff0f5,#ff69b4)">
+  <h1>Page 18 — Thank You For Being You 🤍</h1>
+  <p>Your trust, love, and light have made my life infinitely brighter. 🤍</p>
+  <div class="image-container"><img src="images/photo18.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#fff0f5,#ff69b4)">
+  <h1 class="finale">Page 19 — Always 🌸</h1>
+  <p>Thank you for choosing me as your best friend, today and every day. 💖</p>
+  <div class="image-container"><img src="images/photo19.jpg"></div>
+</section>
+
+<section class="page" style="background:linear-gradient(to bottom,#ffb6c1,#ff69b4)">
+  <h1 class="finale">Page 20 — Forever Together 💞</h1>
+  <p>Our story continues with endless love and laughter. 💖</p>
+  <div class="image-container"><img src="images/photo20.jpg"></div>
+</section>
+
+<!-- NAVIGATION BUTTONS -->
+<div class="nav-buttons">
+  <button onclick="prevPage()">⬅ Previous</button>
+  <button onclick="nextPage()">Next ➡</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  let currentPage = 0;
+  const pages = document.querySelectorAll(".page");
+  const music = document.getElementById("bg-music");
+  let particleInterval;
+
+  // ===== SHOW PAGE FUNCTION =====
+  function showPage(index){
+    pages.forEach(p => p.classList.remove("show"));
+    const activePage = pages[index];
+    activePage.classList.add("show");
+
+    // Remove old floating emojis
+    document.querySelectorAll(".emoji").forEach(e=>e.remove());
+    clearInterval(particleInterval);
+
+    particleInterval = setInterval(()=>createParticles(index === pages.length-1 ? 6 : 3), index===pages.length-1?350:600);
+
+    // Typed text
+    const heading = activePage.querySelector("h1");
+    const paragraph = activePage.querySelector("p");
+    const h1Text = heading ? heading.innerText : "";
+    const pText = paragraph ? paragraph.innerText : "";
+    if(heading) heading.innerHTML = "";
+    if(paragraph) paragraph.innerHTML = "";
+
+    function typeText(el, text, i=0, cb){
+      if(!el) return;
+      el.innerHTML += text.charAt(i);
+      i++;
+      if(i<text.length){
+        let delay=40;
+        if(".!,".includes(text.charAt(i-1))) delay=120;
+        if(window.innerWidth<480) delay+=10;
+        setTimeout(()=>typeText(el,text,i,cb), delay);
+      } else if(cb){ cb(); }
+    }
+    if(heading && paragraph){ typeText(heading,h1Text,0,()=>typeText(paragraph,pText)); }
+    else if(heading){ typeText(heading,h1Text); }
+    else if(paragraph){ typeText(paragraph,pText); }
+
+    // Image animation
+    const img = activePage.querySelector(".image-container img");
+    if(img){ img.style.transform="scale(1)"; setTimeout(()=>img.style.transform="scale(1.08)",100); }
+
+    // ===== ADD SPARKLE TO ALL BUTTONS ON THIS PAGE =====
+    const buttons = document.querySelectorAll('.nav-buttons button, .music-btn, .options button');
+    buttons.forEach(btn => {
+      btn.onmouseenter = null; // remove previous listener
+      btn.addEventListener('mouseenter', () => createButtonParticles(btn, 10));
+    });
+  }
+
+  // ===== NAVIGATION FUNCTIONS =====
+  window.nextPage = function(){ if(currentPage<pages.length-1){ currentPage++; showPage(currentPage); } }
+  window.prevPage = function(){ if(currentPage>0){ currentPage--; showPage(currentPage); } }
+  window.selectOption = function(){ nextPage(); }
+
+  // ===== FLOATING PARTICLES =====
+  function createParticles(n){
+    const icons = ["💖","✨","🌸","🤍","💞","🌟"];
+    for(let i=0;i<n;i++){
+      const e=document.createElement("div"); 
+      e.className="emoji";
+      e.innerText=icons[Math.floor(Math.random()*icons.length)];
+      e.style.left=Math.random()*100+"vw";
+      e.style.fontSize=(Math.random()*4+3)+"vmin";
+      document.body.appendChild(e);
+      setTimeout(()=>e.remove(),5000+Math.random()*2000);
+    }
+  }
+
+  // ===== BUTTON SPARKLE EFFECT FUNCTION =====
+  function createButtonParticles(button, count) {
+    const rect = button.getBoundingClientRect();
+    const centerX = rect.left + rect.width/2;
+    const centerY = rect.top + rect.height/2;
+    const icons = ["💖","✨","🌸","🤍","💞","🌟"];
+
+    for(let i=0;i<count;i++){
+      const e = document.createElement("div");
+      e.className = "emoji";
+      e.innerText = icons[Math.floor(Math.random()*icons.length)];
+      e.style.position = "fixed";
+      e.style.left = centerX + (Math.random()*60-30) + "px";
+      e.style.top = centerY + (Math.random()*60-30) + "px";
+      e.style.fontSize = (Math.random()*4+3)+"vmin";
+      document.body.appendChild(e);
+      setTimeout(()=>e.remove(), 3000+Math.random()*1000);
+    }
+  }
+
+  // ===== MUSIC TOGGLE =====
+  window.toggleMusic = function(){
+    if(music.paused){
+      music.volume=0.3; 
+      music.play(); 
+      document.querySelector(".music-btn").innerText="⏸ Pause Music"; 
+    } else {
+      music.pause(); 
+      document.querySelector(".music-btn").innerText="🎶 Play Music"; 
+    }
+  }
+
+  
+  // ===== SHOW FIRST PAGE =====
+  showPage(currentPage);
+});
+</script>
+</body>
+</body>
+</html>
+
